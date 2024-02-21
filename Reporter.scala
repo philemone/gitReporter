@@ -15,7 +15,7 @@ object Reporter {
       val fromDate     = argSince.extractFromMap(mapWithArgs)
       val toDate       = argBefore.extractFromMap(mapWithArgs)
       val user         = argUser.extractFromMap(mapWithArgs)
-      val prettyFormat = mapWithArgs.getOrElse("-p", "%H - %s")
+      val prettyFormat = argPretty.extractFromMap(mapWithArgs, "%H - %s")
       val extraArgs    = if (mapWithArgs.contains("-nm")) "--no-merges" else ""
       val repositories = fetchOrCreateRepositoryFile()
 
@@ -75,9 +75,9 @@ object Reporter {
         throw IllegalArgumentException(s"Required argument $longName is missing (--command example): $toString")
       )
 
-    def extractFromMap(m: Map[String, String], default: String): String = {
-      m.getOrElse(s"-$shortName", m(s"--$longName"))
-    }
+    def extractFromMap(m: Map[String, String], default: String): String = m
+      .find { case (key, _) => equalsName(key) }
+      .map(_._2).getOrElse(default)
 
     override def toString: String = s" -$shortName, \t --$longName \t $description (e.g. --$longName $example)"
   }
