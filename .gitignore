@@ -1,0 +1,11 @@
+.idea
+*.iml
+*.orig
+*.retry
+*.log
+.DS_Store
+target/
+dist/
+build/
+.scala-build/
+.bsp/

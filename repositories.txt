@@ -1,0 +1,5 @@
+# Every line which starts with '#' is ignored
+# place here your repos, e.g.
+
+#~/Work/trubo-application
+#~/work/repo2
